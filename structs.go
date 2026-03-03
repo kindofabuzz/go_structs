@@ -26,7 +26,7 @@ func (u *user) clearUserName() {  // must make user a pointer to change struct
 func main() {
 	userFirstName := getUserData("Enter your first name: ")
 	userLastName := getUserData("Enter your last name: ")
-	userBirthdate := getUserData("Enter your birthdate (MM/DD/YYYY): ")
+	userBirthdate := getUserData("Enter your birthdate: ")
 
 	var appUser user
 
