@@ -1,53 +1,39 @@
 package main
 
 import (
+	"beast/structs/user"
 	"fmt"
 )
-
-type user struct {
-	firstName string
-	lastName  string
-	birthdate string
-}
-
-func (u user) outPutDetails() {
-	fmt.Println(u.firstName, u.lastName, u.birthdate)
-
-}
-
-func (u *user) clearUserName() { // must make user a pointer to change struct
-	u.firstName = "deleted"
-	u.lastName = "deleted"
-	u.birthdate = "deleted"
-
-}
-
-func newUser(firstName, lastName, birthdate string) *user {
-	return &user{
-		firstName: firstName,
-		lastName:  lastName,
-		birthdate: birthdate,
-	}
-}
 
 func main() {
 	userFirstName := getUserData("Enter your first name: ")
 	userLastName := getUserData("Enter your last name: ")
 	userBirthdate := getUserData("Enter your birthdate: ")
 
-	var appUser *user
+	var appUser *user.User
 
-	appUser = newUser(userFirstName, userLastName, userBirthdate)
+	appUser, err := user.New(userFirstName, userLastName, userBirthdate)
 
-	appUser.outPutDetails()
-	appUser.clearUserName()
-	appUser.outPutDetails()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	admin := user.NewAdmin("blah@blah.com","doobie")
+
+	admin.OutPutDetails()
+	admin.ClearUserName()
+	admin.OutPutDetails()
+
+	appUser.OutPutDetails()
+	appUser.ClearUserName()
+	appUser.OutPutDetails()
 }
 
 func getUserData(promptText string) string {
 	fmt.Print(promptText)
 	var value string
-	fmt.Scan(&value)
+	fmt.Scanln(&value)
 	return value
 
 }
